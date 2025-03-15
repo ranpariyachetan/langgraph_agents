@@ -55,3 +55,18 @@ workflow.add_edge("polish_joke", END)
 chain = workflow.compile()
 
 display(chain.get_graph().print_ascii())
+
+# Invoke
+state = chain.invoke({"topic": "cats"})
+print("Initial joke:")
+print(state["joke"])
+print("\n--- --- ---\n")
+if "improved_joke" in state:
+    print("Improved joke:")
+    print(state["improved_joke"])
+    print("\n--- --- ---\n")
+
+    print("Final joke:")
+    print(state["final_joke"])
+else:
+    print("Joke failed quality gate - no punchline detected!")
