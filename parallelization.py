@@ -64,5 +64,5 @@ parallel_workflow = parallel_builder.compile()
 
 display(parallel_workflow.get_graph().print_ascii())
 
-state = parallel_workflow.invoke({"topic": "cats"})
-print(state["combined_output"])
+output = parallel_workflow.invoke({"topic": "cats"})
+print(output["combined_output"])

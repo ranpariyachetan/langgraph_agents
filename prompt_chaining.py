@@ -63,16 +63,16 @@ chain = workflow.compile()
 display(chain.get_graph().print_ascii())
 
 # Invoke
-state = chain.invoke({"topic": "cats"})
+chain_output = chain.invoke({"topic": "cats"})
 print("Initial joke:")
-print(state["joke"])
+print(chain_output["joke"])
 print("\n--- --- ---\n")
-if "improved_joke" in state:
+if "improved_joke" in chain_output:
     print("Improved joke:")
-    print(state["improved_joke"])
+    print(chain_output["improved_joke"])
     print("\n--- --- ---\n")
 
     print("Final joke:")
-    print(state["final_joke"])
+    print(chain_output["final_joke"])
 else:
     print("Joke failed quality gate - no punchline detected!")
