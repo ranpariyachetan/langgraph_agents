@@ -63,3 +63,6 @@ parallel_builder.add_edge("aggregator", END)
 parallel_workflow = parallel_builder.compile()
 
 display(parallel_workflow.get_graph().print_ascii())
+
+state = parallel_workflow.invoke({"topic": "cats"})
+print(state["combined_output"])
