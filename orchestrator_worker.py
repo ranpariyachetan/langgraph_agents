@@ -125,3 +125,7 @@ orchestrator_worker = orchestrator_worker_builder.compile()
 # Show the workflow
 display(orchestrator_worker.get_graph().print_ascii())
 
+# Invoke
+orchestrator_output = orchestrator_worker.invoke({"topic": "Create a report on LLM scaling laws"})
+
+print(orchestrator_output["final_report"])
