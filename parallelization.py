@@ -38,3 +38,28 @@ def aggregator(state: State):
     combined += f"POEM:\n{state['poem']}"
 
     return {"combined_output": combined}
+
+# Build workflow
+
+parallel_builder = StateGraph(State)
+
+# Add nodes
+parallel_builder.add_node("call_llm_1", call_llm_1)
+parallel_builder.add_node("call_llm_2", call_llm_2)
+parallel_builder.add_node("call_llm_3", call_llm_3)
+parallel_builder.add_node("aggregator", aggregator)
+
+# Add edges to connect nodes.
+parallel_builder.add_edge(START, "call_llm_1")
+parallel_builder.add_edge(START, "call_llm_2")
+parallel_builder.add_edge(START, "call_llm_3")
+
+parallel_builder.add_edge("call_llm_1", "aggregator")
+parallel_builder.add_edge("call_llm_2", "aggregator")
+parallel_builder.add_edge("call_llm_3", "aggregator")
+
+parallel_builder.add_edge("aggregator", END)
+
+parallel_workflow = parallel_builder.compile()
+
+display(parallel_workflow.get_graph().print_ascii())
