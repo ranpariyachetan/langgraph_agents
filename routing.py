@@ -39,13 +39,13 @@ def llm_call_2(state: State):
     """Write a joke"""
 
     result = llm.invoke(state["input"])
-    return {"joke": result.content}
+    return {"output": result.content}
 
 def llm_call_3(state: State):
     """Write a poem"""
 
     result = llm.invoke(state["input"])
-    return {"poem": result.content}
+    return {"output": result.content}
 
 def llm_call_router(state: State):
     """Route the input to the appropriate node"""
@@ -62,7 +62,7 @@ def llm_call_router(state: State):
         ]
     )
 
-    return {"decision", decision.step}
+    return {"decision": decision.step}
 
 # Conditional edge function to route to the appropriate node
 def route_decision(state: State):
@@ -103,3 +103,7 @@ router_workflow = router_builder.compile()
 
 # Show the workflow
 display(router_workflow.get_graph().print_ascii())
+
+routing_output = router_workflow.invoke({"input": "Write a poem about cats."})
+
+print(routing_output["output"])
